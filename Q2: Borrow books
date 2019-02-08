@@ -1,1 +1,47 @@
+/*
+2、借书方案：
+小明有5本书，3个朋友来借书，每个人只能借1本书，问有几种借书方案？
+*/
+
+// 解题思路
+// 第一步：现实问题抽象为数学问题
+// 这个借书问题是数学上的排列组合问题：从5个数里面取3个数
+// 第二步：设计算法
+// 5本书设计编号为1~5,3个人都可以取任何一本书，但是不能重复
+// 设计三重循环，利用穷举法完成
+
+
+#include <stdio.h>
+#include <stdlib.h>
+const int BOOKS = 5;     // 书籍的总数
+
+
+int main()
+{
+	int friend1      = 0;   // 朋友1
+	int friend2      = 0;   // 朋友2
+	int friend3      = 0;   // 朋友3
+	int bookSolution = 0;   // 借书方案
+	printf("\n");
+	printf("\n");
+
+	for (friend1 = 1; friend1 <= BOOKS; friend1++)
+	{
+		for (friend2 = 1; friend2 <= BOOKS; friend2++)
+		{
+			for (friend3 = 1; friend3 <= BOOKS; friend3++)
+			{ 
+				// every friend borrow different book
+				if ((friend1 != friend2) && (friend1 != friend3) && (friend2 != friend3))
+				{
+					bookSolution++;
+					printf("Book borrow solution %2d: book%d book%d book%d.\n", bookSolution, friend1, friend2, friend3);
+				}
+			}
+		}
+	}
+
+	system("pause");
+	return 0;
+}
 
