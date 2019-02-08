@@ -1,0 +1,60 @@
+/*
+百钱百鸡问题：
+一百文钱，公鸡5文钱一只，母鸡3文钱一只，小鸡三只1文，
+百钱买百鸡，问公鸡、母鸡、小鸡各几只？
+*/
+
+// 解题思路
+// 第一步：现实问题抽象为数学问题
+// 假设公鸡数量为cock，母鸡数量为hen，小鸡数量为chick,
+// 问题转变为解三个方程式
+// cock + hen + chick = 100        (1)
+// cock*5 + hen*3+chick/3 = 100    (2)
+// chick%3==0                      (3)
+// 第二步：设计算法
+// 穷举法   +  三重循环
+
+
+#include <stdio.h>
+#include <stdlib.h>
+const int MONEY       = 100;    // 钱的总数
+const int AMOUNT      = 100;    // 鸡的总数
+
+// 公鸡最大数量，一百钱全部买公鸡最多可以买20只
+const int COCK_AMOUNT  = 20;     // 公鸡最大数量
+// 母鸡最大数量，一百钱全部买母鸡最多可以买33只
+const int HEN_AMOUNT   = 33;     
+// 小鸡最大数量，小鸡最多可以买99只（小鸡数量必须是3的倍数，所以到不了100）
+const int CHICK_AMOUNT = 99;
+// 三种鸡的价格
+const int COCK_PRICE   = 5;  // 公鸡5文钱一只
+const int HEN_PRICE    = 3;  // 母鸡3文钱一只
+const int CHICK_PRICE  = 3;  // 小鸡1文钱三只
+
+int main()
+{
+	int cock  = 0;   // 定义公鸡数量的变量
+	int hen   = 0;   // 定义母鸡数量的变量
+	int chick = 0;   // 定义小鸡数量的变量
+	printf("\n");
+	printf("\n");
+	for (cock = 0; cock <= COCK_AMOUNT; cock++)
+	{
+		for (hen = 0; hen <= HEN_AMOUNT; hen++)
+		{
+			for (chick = 0; chick <= CHICK_AMOUNT; chick = chick + CHICK_PRICE) // 小鸡数量必须是3的整数倍
+			{
+				if (((cock * COCK_PRICE + hen * HEN_PRICE + chick / CHICK_PRICE) == MONEY) && ((cock + hen + chick) == AMOUNT))
+				{
+					printf("\t公鸡的数量是 %d。\n", cock);
+					printf("\t母鸡的数量是 %d。\n", hen);
+					printf("\t小鸡的数量是 %d。\n", chick);
+					printf("\t****************\n");
+				}
+			}
+		}
+	}
+
+	system("pause");
+	return 0;
+}
