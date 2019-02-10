@@ -1,0 +1,256 @@
+/*
+3、三天打渔，两天晒网：
+某人从1990年1月1号开始三天打渔，两天晒网，问从以后的某一天是打渔还是晒网
+*/
+
+// 解题思路
+// 主要是判断某一天到起始天数的时间间隔，
+// 5天一个周期，总天数对5求余，在1~3之间就是打渔，4和0就是晒网
+// 关键问题是天数的计算，要考虑闰年的情况
+
+// method 1:
+//#include <stdio.h>
+//#include <stdlib.h>
+//const int CIRCLE     = 5;        // work circle
+//const int START_YEAR = 1990;     // start year
+//static int monthList[12]    = { 31,28,31,30,31,30,31,31,30,31,30,31};
+//static int monthSumList[12] = { 0,31,49,80,110,141,171,202,233,263,294,324};
+//
+//int main()
+//{
+//	int year     = 0;    // store year
+//	int month    = 0;    // store month
+//	int date     = 0;    // store date
+//	int days     = 0;    // the amount of days from 1990/01/01
+//	int leapYear = 0;    // the amount of leap year
+//	printf("\n");
+//	printf("\n");
+//
+//	printf("Interesting Question 3: Three days fishing and two days to dry the net.\n");
+//	printf("Please input year, mouth and date in sequence(input format like 2019 2 10):");
+//	scanf_s("%d%d%d", &year, &month, &date);
+//	printf("\n");
+//	printf("\n");
+//
+//	if (year > START_YEAR)
+//	{ 
+//		// 计算从起始年份到指定年份的前一年有多少个闰年
+//		for (int i = START_YEAR; i <= (year - 1); i++)
+//		{
+//			// judge the leap year
+//			if ((i % 400 == 0) || ((i % 4 == 0) && (i % 100 != 0)))
+//			{
+//				leapYear++;
+//			}
+//		}
+//	}
+//	days = (year - START_YEAR) * 365 + leapYear; // count year
+//	// count month
+//	days = days + monthSumList[month - 1];       
+//	// judge end year is a leap year or not
+//	if (month >= 3)
+//	{
+//		if ((year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0)))
+//		{
+//			days++;
+//		}
+//	}
+//	days = days + date;                          // count date
+//	printf("The total days is %d.\n", days);
+//	switch (days % 5)
+//	{
+//	    case 1:
+//		case 2:
+//		case 3:
+//		{
+//			printf("He is going fishing.\n");
+//			break;
+//		}
+//		case 0:
+//		case 4:
+//		{
+//			printf("He is drying net.\n");
+//			break;
+//		}
+//      default:break;
+//	}
+//
+//	system("pause");
+//	return 0;
+//}
+
+// method 2: use structure
+//#include <stdio.h>
+//#include <stdlib.h>
+//const int  CIRCLE     = 5;        // work circle
+//const int  START_YEAR = 1990;     // start year
+//// 注意：不包括最后一个月的天数，最后一个月利用成员变量day直接加上
+//static int monthList[12]    = { 0,31,28,31,30,31,30,31,31,30,31,30}; 
+//static int monthSumList[12] = { 0,31,49,80,110,141,171,202,233,263,294,324};
+//typedef struct
+//{
+//	int year;
+//	int month;
+//	int day;
+//} DATE;
+//
+//int main()
+//{
+//	DATE curDate;        // current date
+//	int days     = 0;    // the amount of days from 1990/01/01
+//	int leapYear = 0;    // the amount of leap year
+//	int i = 0;           // loop variable
+//	printf("\n");
+//	printf("\n");
+//
+//	printf("Interesting Question 3: Three days fishing and two days to dry the net.\n");
+//	printf("Please input year, mouth and date in sequence(input format like 2019 2 10):");
+//	scanf_s("%d%d%d", &curDate.year, &curDate.month, &curDate.day);
+//	printf("\n");
+//	printf("\n");
+//
+//	if (curDate.year > START_YEAR)
+//	{ 
+//		// 计算从起始年份到指定年份的前一年有多少个闰年
+//		for ( i = START_YEAR; i <curDate.year; i++)
+//		{
+//			// judge the leap year
+//			if ((i % 400 == 0) || ((i % 4 == 0) && (i % 100 != 0)))
+//			{
+//				leapYear++;
+//			}
+//		}
+//	}
+//	days = (curDate.year - START_YEAR) * 365 + leapYear; // count year
+//	// count month
+////	days = days + monthSumList[curDate.month - 1];
+//	for (i = 0; i < curDate.month; i++)
+//	{
+//		days = days + monthList[i];
+//	}
+//	// judge end year is a leap year or not
+//	if (curDate.month >= 3)
+//	{
+//		if ((curDate.year % 400 == 0) || ((curDate.year % 4 == 0) && (curDate.year % 100 != 0)))
+//		{
+//			days++;
+//		}
+//	}
+//	days = days + curDate.day;                          // count date
+//	printf("The total days is %d.\n", days);
+//	switch (days % 5)
+//	{
+//	    case 1:
+//		case 2:
+//		case 3:
+//		{
+//			printf("He is going fishing.\n");
+//			break;
+//		}
+//		case 0:
+//		case 4:
+//		{
+//			printf("He is drying net.\n");
+//			break;
+//		}
+//      default:break;
+//	}
+//
+//	system("pause");
+//	return 0;
+//}
+
+/*
+拓展：输入任何是一个年/月/日信息，判断使星期几
+以公元1年1月1为星期一判断
+*/
+
+// 解题思路
+// 主要是判断某一天到起始天数的时间间隔，
+
+// 7天一个周期，总天数对7求余，
+
+//
+#include <stdio.h>
+#include <stdlib.h>
+const int  CIRCLE     = 7;        // week circle
+const int  START_YEAR = 1;     // start year
+// 注意：不包括最后一个月的天数，最后一个月利用成员变量day直接加上
+static int monthList[12]    = { 0,31,28,31,30,31,30,31,31,30,31,30}; 
+
+// 假设公元1年1月1日为星期一
+typedef struct
+{
+	int year;
+	int month;
+	int day;
+} DATE;
+
+int main()
+{
+	DATE curDate;        // current date
+	int days     = 0;    // the amount of days from 1990/01/01
+	int leapYear = 0;    // the amount of leap year
+	int i = 0;           // loop variable
+	char choice = 'y';
+	printf("\n");
+	printf("\n");
+
+	printf("Judge a certain date .\n");
+	while (choice == 'y')
+	{   
+		leapYear = 0;    // clear
+		days = 0;        // clear  
+		printf("Please input year, mouth and date in sequence(input format like 2019 2 10):");
+		scanf_s("%d%d%d", &curDate.year, &curDate.month, &curDate.day);
+		getchar();       //  clear ENTER
+
+		if (curDate.year > START_YEAR)
+		{
+			// 计算从起始年份到指定年份的前一年有多少个闰年
+			for (i = START_YEAR; i < curDate.year; i++)
+			{
+				// judge the leap year
+				if ((i % 400 == 0) || ((i % 4 == 0) && (i % 100 != 0)))
+				{
+					leapYear++;
+				}
+			}
+		}
+		days = (curDate.year - START_YEAR) * 365 + leapYear; // count year
+		// count month
+	//	days = days + monthSumList[curDate.month - 1];
+		for (i = 0; i < curDate.month; i++)
+		{
+			days = days + monthList[i];
+		}
+		// judge end year is a leap year or not
+		if (curDate.month >= 3)
+		{
+			if ((curDate.year % 400 == 0) || ((curDate.year % 4 == 0) && (curDate.year % 100 != 0)))
+			{
+				days++;
+			}
+		}
+		days = days + curDate.day;                          // count date
+		printf("The total days is %d.\n", days);
+		switch (days % 7)
+		{
+		case 1: { printf("今天是星期一.\n"); break; }
+		case 2: { printf("今天是星期二.\n"); break; }
+		case 3: { printf("今天是星期三.\n"); break; }
+		case 4: { printf("今天是星期四.\n"); break; }
+		case 5: { printf("今天是星期五.\n"); break; }
+		case 6: { printf("今天是星期六.\n"); break; }
+		case 0: { printf("今天是星期日.\n"); break; }
+		default:break;
+		}
+		printf("Contiue or not?(y/n):");
+		choice = getchar();
+		getchar();       //  clear ENTER
+	
+	}
+	printf("Program exit!\n");
+	system("pause");
+	return 0;
+}
