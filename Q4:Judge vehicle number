@@ -1,0 +1,47 @@
+/*
+4、车牌判断：
+   四位车牌：三个条件
+   1、前2位相等
+   2、后2位相等，但不和前两位相等
+   3、是一个整数的平方
+*/
+
+// 解题思路
+// 采用遍历法，先利用两重循环找到满足前两个条件的数,
+// 然后在其中筛选出是整数平方的数
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+	int vehicleNum = 0;  // vehicle number
+	printf("\n");
+	printf("\n");
+
+	printf("Interesting Question 4: Judge vehicle number.\n");
+	// 获得前两位相同，后两位相同，但各不相同的车牌
+	for (int i = 0; i <= 9; i++)
+	{
+		for (int j = 0; j <= 9; j++)
+		{
+			if (i != j)
+			{
+				vehicleNum = i * 1000 + i * 100 + j * 10 + j;
+				// 四位车牌的整数平方，最小从31开始
+				for (int k = 31; k <= 100; k++)
+				{
+					if (vehicleNum == (k*k))
+					{
+						printf("The vehicle number is %d.\n", vehicleNum);
+					}
+				}
+			}
+		}
+	}
+
+	system("pause");
+	return 0;
+}
