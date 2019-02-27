@@ -1,0 +1,35 @@
+/*
+6、最佳存款方案：
+银行一年整存整取月利息0.63%,某人有一笔钱，在今后5年的每一年底取1000元，
+到第5年底刚好取完，请问第一年初应该存多少钱
+*/
+
+// 解题思路
+// 采用倒推法:第4年底的存款为：1000/（1+12*0.0063）=m4
+//          第3年底的存款为： (m4+1000)/（1+12*0.0063） =m3
+//          第2年底的存款为： (m3+1000)/（1+12*0.0063） =m2 
+//          第1年底的存款为： (m2+1000)/（1+12*0.0063） =m1
+//          年初存款：       (m1+1000)/（1+12*0.0063） =m0
+// 利用一个循环，循环5次即可完成，变量初值为0；
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+	double deposit = 0;  // the orginal money
+	printf("\n");
+	printf("\n");
+
+	printf("Interesting Question 6: Best strategy to save money.\n");
+
+	for (int i = 0; i <= 4; i++)
+	{
+		deposit = (deposit + 1000) / (1 + 12 * 0.0063);
+	}
+
+	printf("The orginal money is %.2f.\n",deposit);
+
+	system("pause");
+	return 0;
+}
